@@ -1,0 +1,112 @@
+<html>
+  <head>
+    <title>Table Generator</title>
+    <style>
+      input[type="text"] {
+        border: 1px solid #ffffff;
+        font-weight: bold;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      td {
+        padding: 0;
+        border: 1px solid #ccc;
+        position: relative;
+      }
+      td:hover {
+        border: blue;
+      }
+      th {
+        background-color: #ff7f50;
+      }
+      body {
+        background: linear-gradient(to right, #2c3e50, #000000);
+      }
+      .set1 {
+        padding: 10px;
+        text-align: center;
+      }
+      .set2 {
+        padding-bottom: 15px;
+        text-align: center;
+      }
+      button {
+        background-color: #f7e7ce;
+        color: Black;
+        padding: 5px;
+        font-weight: bold;
+        border-radius: 13px;
+        margin-bottom: 20px;
+      }
+      button:hover {
+        background-color: black;
+        color: white;
+      }
+      label {
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="set1">
+      <b><label for="rows">Rows:</label></b>
+      <input type="number" id="rows" value="3" min="1" />
+    </div>
+    <div class="set2">
+      <b> <label for="cols">Columns:</label></b>
+      <input type="number" id="cols" value="3" min="1" />
+    </div>
+    <div>
+      <center><button onclick="createTable()">Create Table</button></center>
+    </div>
+
+    <div id="tablearea"></div>
+
+    <script>
+      function createTable() {
+        let row = document.getElementById("rows").value;
+        let col = document.getElementById("cols").value;
+        console.log(row);
+        console.log(col);
+
+        let tableHtml = createTableElement(row, col);
+        document.getElementById("tablearea").innerHTML = tableHtml;
+      }
+
+      function createTableElement(row, col) {
+        let html =
+          "<table border='1' width='70%' align='center' margin='20px'>";
+
+        //Creating Header for table
+        html += "<tr>";
+        for (let h = 0; h < col; h++) {
+          html += "<th>Header " + (h + 1) + "</th>";
+        }
+        html += "</tr>";
+
+        // Create the data rows
+        for (let r = 0; r < row; r++) {
+          html += createRowElement(col, r);
+        }
+
+        html += "</table>";
+        return html;
+      }
+
+      function createRowElement(colCount, rowNum) {
+        let rowHtml = "<tr>";
+        for (let c = 0; c < colCount; c++) {
+          rowHtml += createCellElement(rowNum, c);
+        }
+        rowHtml += "</tr>";
+        return rowHtml;
+      }
+
+      function createCellElement(rowNum, colNum) {
+        return (
+          "<td><input type='text' id='cell" + rowNum + "-" + colNum + "'></td>"
+        );
+      }
+    </script>
+  </body>
+</html>
